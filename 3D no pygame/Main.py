@@ -4,6 +4,9 @@ input()
 # Import classes (and functions)
 
 from Classes import *
+from Functions import movement_mainloop, mouse_mainloop
+import mouse
+import os
 
 # Define screen dimensions
 
@@ -17,6 +20,10 @@ if Screen_Height % 2 == 1:
 
 if Screen_Width % 2 == 1:
     Screen_Width -= 1
+
+# Set Console Dimensions
+
+os.system(f"mode {Screen_Width},{Screen_Height}")
 
 # Define FOV
 
@@ -44,6 +51,8 @@ timer = timer_normal
 
 Start = time.time()
 
+# Set mouse origin
+x1 = mouse.get_position()[0]
 
 while True:
     
@@ -56,4 +65,7 @@ while True:
         timer = timer_normal
     else:
         timer -= 1
-    player.move(player.speed, 0, Start, big_map)
+  
+    movement_mainloop(player, Start, big_map)
+    mouse_mainloop(player, Start, x1)
+    x1 = mouse.get_position()[0]

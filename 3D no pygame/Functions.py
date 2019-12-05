@@ -1,5 +1,7 @@
 from math import *
-
+import keyboard
+import sys
+import mouse
 
 def merge_distances(distances_list, screen_width):
     new_distances = [float('inf')] * screen_width
@@ -168,3 +170,21 @@ def draw_lines(inverted, pivot, used_map, screen_width, screen_height, angle_per
         screen = screen + "\n"
                 
     return screen
+
+def movement_mainloop(player_obj, start, big_map):
+
+    # Map key input to player movement
+    if keyboard.is_pressed("w"): player_obj.move(player_obj.speed, 0,   start, big_map)
+    if keyboard.is_pressed("a"): player_obj.move(player_obj.speed, 270, start, big_map)
+    if keyboard.is_pressed("s"): player_obj.move(player_obj.speed, 180, start, big_map)
+    if keyboard.is_pressed("d"): player_obj.move(player_obj.speed, 90,  start, big_map)
+    
+    if keyboard.is_pressed("esc"): sys.exit(0)
+
+def mouse_mainloop(player_obj, start, x1):
+
+    x2 = mouse.get_position()[0]
+    delta_pos = x2 - x1
+    rot = delta_pos * 3
+    player_obj.rotate(rot, start)
+    
