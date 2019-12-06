@@ -54,8 +54,9 @@ Start = time.time()
 # Set mouse origin
 x1 = mouse.get_position()[0]
 
+f_pressed = False
+
 while True:
-    print(player.static_mouse)
     
     Start = time.time()
     screen = draw_lines(True, player, big_map, Screen_Width, Screen_Height, Angle_Per_Line)
@@ -67,7 +68,7 @@ while True:
     else:
         timer -= 1
   
-    movement_mainloop(player, Start, big_map)
+    f_pressed = movement_mainloop(player, Start, big_map, f_pressed)
     mouse_mainloop(player, Start, x1)
     x1 = mouse.get_position()[0]
     

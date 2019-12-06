@@ -171,19 +171,24 @@ def draw_lines(inverted, pivot, used_map, screen_width, screen_height, angle_per
                 
     return screen
 
-def movement_mainloop(player_obj, start, big_map):
+def movement_mainloop(player_obj, start, big_map, f_pressed):
 
     # Map key input to player movement
     if keyboard.is_pressed("w"): player_obj.move(player_obj.speed, 0,   start, big_map)
     if keyboard.is_pressed("a"): player_obj.move(player_obj.speed, 270, start, big_map)
     if keyboard.is_pressed("s"): player_obj.move(player_obj.speed, 180, start, big_map)
     if keyboard.is_pressed("d"): player_obj.move(player_obj.speed, 90,  start, big_map)
-    if keyboard.is_pressed("f") and player_obj.static_mouse == False:
-        player_obj.static_mouse = True
-        player_obj.static_mouse_pos = mouse.get_position()
-    elif keyboard.is_pressed("f") and player_obj.static_mouse == True:
+    if keyboard.is_pressed("f"): f_pressed = True
+    if not keyboard.is_pressed("f") and f_pressed and player_obj.static_mouse:
         player_obj.static_mouse = False
+        f_pressed = False
+    if not keyboard.is_pressed("f") and f_pressed and not player_obj.static_mouse:
+        player_obj.static_mouse = True
+        f_pressed = False
+        player_obj.static_mouse_pos = mouse.get_position()
     if keyboard.is_pressed("esc"): sys.exit(0)
+
+    return f_pressed
 
 def mouse_mainloop(player_obj, start, x1):
 
