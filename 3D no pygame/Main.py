@@ -58,7 +58,7 @@ while True:
     
     Start = time.time()
     screen = draw_lines(True, player, big_map, Screen_Width, Screen_Height, Angle_Per_Line)
-    print(screen)
+    print(screen, end="")
     Angle_Per_Line = FOV / Screen_Width
     if timer == 0:
         big_map.change_vectors_in_use(player.point, Draw_Distance)
